@@ -1,11 +1,11 @@
 package pageObjects;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 public class HomePage {
-	
+
 	public static WebElement element = null;
 
 	public static WebElement FindBusinessBtn(WebDriver driver) {
@@ -13,5 +13,9 @@ public class HomePage {
 		return element;
 
 	}
-	
+
+	public static WebElement LogOut(WebDriver driver) {
+		element = driver.findElement(By.xpath("//div[@class='v-btn__content'][contains(text(),'Logout')]"));
+		return element;
+	}
 }

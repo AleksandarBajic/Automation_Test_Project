@@ -1,147 +1,153 @@
 package pageObjects;
 
-import java.awt.Desktop.Action;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
 public class BussinesPage {
 
 	public static WebElement element = null;
 
-	public static WebElement GetNewBusniess(WebDriver driver) {
-		element = driver.findElement(By.id("add-new-business"));
+	public static WebElement getNewBusniess(WebDriver driver) {
+		element = driver.findElement(By.xpath("//*[@id=\"add-new-business\"]/div"));
 		return element;
 
 	}
 
-	public static WebElement GetBusinessName(WebDriver driver) {
+	public static WebElement getBusinessName(WebDriver driver) {
 		element = driver.findElement(By.id("business-form-name"));
 		return element;
 	}
 
-	public static WebElement GetCountries(WebDriver driver) {
+	public static WebElement getCountries(WebDriver driver) {
 		element = driver.findElement(By.id("business-form-country"));
 		return element;
 	}
 
-	public static WebElement GetCity(WebDriver driver) {
+	public static WebElement getCity(WebDriver driver) {
 		element = driver.findElement(By.id("business-form-city"));
 		return element;
 	}
 
-	public static WebElement GetStreet(WebDriver driver) {
+	public static WebElement getStreet(WebDriver driver) {
 		element = driver.findElement(By.id("business-form-street"));
 		return element;
 	}
 
-	public static WebElement GetZip(WebDriver driver) {
+	public static WebElement getZip(WebDriver driver) {
 		element = driver.findElement(By.id("business-form-zip"));
 		return element;
 	}
 
-	public static WebElement GetAddBankAccount(WebDriver driver) {
+	public static WebElement getRegistryNumber(WebDriver driver) {
+		element = driver.findElement(By.id("business-form-zip"));
+		return element;
+	}
+
+	public static WebElement getAddBankAccount(WebDriver driver) {
 		element = driver.findElement(By.id("business-form-add-bank-btn"));
 		return element;
 	}
 
-	public static WebElement GetBankName(WebDriver driver) {
+	public static WebElement getBankName(WebDriver driver) {
 		element = driver.findElement(By.id("bank-dialog-name"));
 		return element;
 
 	}
 
-	public static WebElement GetAccountNumber(WebDriver driver) {
+	public static WebElement getAccountNumber(WebDriver driver) {
 		element = driver.findElement(By.id("bank-dialog-num"));
 		return element;
 	}
 
-	public static WebElement GetSwiftNumber(WebDriver driver) {
+	public static WebElement getSwiftNumber(WebDriver driver) {
 		element = driver.findElement(By.id("bank-dialog-swf-num"));
 		return element;
 	}
 
-	public static WebElement GetPaymentInstruction(WebDriver driver) {
+	public static WebElement getPaymentInstruction(WebDriver driver) {
 		element = driver.findElement(By.id("bank-dialog-pay-inst"));
 		return element;
 	}
 
-	public static WebElement GetCurrency(WebDriver driver) {
+	public static WebElement getCurrency(WebDriver driver) {
 		element = driver.findElement(By.xpath("//div[@class='v-select__selections']"));
 		return element;
 	}
 
-	public static WebElement GetAddBankAccountBtn(WebDriver driver) {
+	public static WebElement getAddBankAccountBtn(WebDriver driver) {
 		element = driver.findElement(By.xpath("//div[contains(text(),'Add bank account')]"));
 		return element;
 	}
 
-	public static WebElement GetCancelBankAccountBtn(WebDriver driver) {
+	public static WebElement getCancelBankAccountBtn(WebDriver driver) {
 		element = driver.findElement(By.xpath("//div[contains(text(),'Cancel')]"));
 		return element;
 	}
-	public static void WebElement AddBusinessName(WebDriver driver) {
-		element = driver.findElement(By.id("business-form-name"));
-		
+
+	public static void addBusinessName(WebDriver driver, String input) {
+		getBusinessName(driver).sendKeys(input);
 	}
 
-	public void addCountry() {
-
-		Action country = builder.moveToElement(countriesField).click().sendKeys("serbia").build();
+	public static void addCountry(WebDriver driver, String countryName) {
+		Actions builder = new Actions(driver);
+		Actions country = builder.moveToElement(getCountries(driver)).click().sendKeys(countryName);
+		country.sendKeys(Keys.DOWN).sendKeys(Keys.RETURN);
 		country.perform();
-		Action choose = builder.moveToElement(countryList.get(0)).click().build();
-		choose.perform();
 	}
 
-	public static void AddCity(WebDriver driver) {
-		element = driver.
-		
-	}
-
-	public static void WebElement AddStreet(WebDriver driver) {
-		element = driver.findElement(By.id("business-form-street"));
-		
-	}
-
-	public static void WebElement AddZip(WebDriver driver) {
-		element = driver.findElement(By.id("business-form-zip"));
-		
-	}
-
-	public static void WebElement AddBankAccount(WebDriver driver) {
-		element = driver.findElement(By.id("business-form-add-bank-btn"));
-		
-	}
-
-	public static void WebElement AddBankName(WebDriver driver) {
-		element = driver.findElement(By.id("bank-dialog-name"));
-		
+	public static void addCity(WebDriver driver, String input) {
+		getCity(driver).sendKeys(input);
 
 	}
 
-	public static void WebElement AddAccountNumber(WebDriver driver) {
-		element = driver.findElement(By.id("bank-dialog-num"));
-		
+	public static void addStreet(WebDriver driver, String input) {
+		getStreet(driver).sendKeys(input);
 	}
 
-	public static void WebElement AddSwiftNumber(WebDriver driver) {
-		element = driver.findElement(By.id("bank-dialog-swf-num"));
-		
+	public static void addZip(WebDriver driver, Integer input) {
+		getZip(driver).sendKeys(input.toString());
 	}
 
-	public static void WebElement AddPaymentInstruction(WebDriver driver) {
-		element = driver.findElement(By.id("bank-dialog-pay-inst"));
-		
+	public static void addRegistryNumber(WebDriver driver, Integer input) {
+		getRegistryNumber(driver).sendKeys(input.toString());
 	}
 
-	public void addCurrency() {
-		Action currency = builder.moveToElement(currencyField).click().moveToElement(selectBankPage.get(0)).click()
-				.build();
+	public static void addAddBankAccount(WebDriver driver, String input) {
+		getAddBankAccount(driver).sendKeys(input);
+	}
+
+	public static void addBankName(WebDriver driver, String input) {
+		getBankName(driver).sendKeys(input);
+	}
+
+	public static void addAccountNumber(WebDriver driver, String input) {
+		getAccountNumber(driver).sendKeys(input);
+	}
+
+	public static void addSwiftNumber(WebDriver driver, String input) {
+		getSwiftNumber(driver).sendKeys(input);
+	}
+
+	public static void addPaymentInstruction(WebDriver driver, String input) {
+		getPaymentInstruction(driver).sendKeys(input);
+	}
+
+	public void addCurrency(WebDriver driver) {
+		Actions builder = new Actions(driver);
+		Action currency = builder.moveToElement(getCurrency(driver)).click().moveToElement(getAddBankAccount(driver))
+				.click().build();
 		currency.perform();
 	}
 
+	public static void addAddBankAccountBtn(WebDriver driver, String input) {
+		getAddBankAccountBtn(driver).sendKeys(input);
+	}
+
+	public static void addCancelBankAccountBtn(WebDriver driver, String input) {
+		getCancelBankAccountBtn(driver).sendKeys(input);
+	}
 }

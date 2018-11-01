@@ -2,26 +2,26 @@ package utility;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 
-public class Exelutils {
-	private static XSSFSheet ExcelWSheet;
+public class ExcelUtils {
+	private static HSSFSheet ExcelWSheet;
 
-	private static XSSFWorkbook ExcelWBook;
+	private static HSSFWorkbook ExcelWBook;
 
-	private static XSSFCell Cell;
+	private static HSSFCell Cell;
 
-	private static XSSFRow Row1;
+	private static HSSFRow Row1;
 
 	public static void setExcelFile(String Path, String SheetName) throws Exception {
 
 		try {
 			FileInputStream ExcelFile = new FileInputStream(Path);
-			ExcelWBook = new XSSFWorkbook(ExcelFile);
+			ExcelWBook = new HSSFWorkbook(ExcelFile);
 
 			ExcelWSheet = ExcelWBook.getSheet(SheetName);
 
@@ -56,7 +56,7 @@ public class Exelutils {
 
 			Row1 = ExcelWSheet.getRow(RowNum);
 
-			Cell = Row1.getCell(ColNum, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+			Cell = Row1.getCell(ColNum, Row.RETURN_BLANK_AS_NULL);
 
 			if (Cell == null) {
 
@@ -83,6 +83,22 @@ public class Exelutils {
 
 		}
 
+	}
+
+	public static Integer getCellData1(int RowNum, int ColNum) {
+		try {
+
+			Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
+
+			Integer CellData = (int)Cell.getNumericCellValue();
+
+			return CellData;
+
+		} catch (Exception e) {
+
+			return 0;
+
+		}
 	}
 
 }
