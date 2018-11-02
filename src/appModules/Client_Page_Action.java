@@ -7,38 +7,45 @@ import utility.Constant;
 import utility.ExcelUtils;
 
 public class Client_Page_Action {
-	public static void SetUpExcel(String sheet) throws Exception {
-		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Sheet");
+	public static void SetUpExcel() throws Exception {
+		ExcelUtils.setExcelFile(Constant.Path_TestData1 + Constant.File_TestData1, "Client");
 	}
 
-	public static String AddNewClientTest(WebDriver driver) throws Exception {
-		SetUpExcel("Client");
-		String clientName = ExcelUtils.getCellData(1, 1);
-		String contactName = ExcelUtils.getCellData(1, 2);
-		String email = ExcelUtils.getCellData(1, 3);
-		Integer registryNumber = ExcelUtils.getCellData1(1, 4);
-		String country = ExcelUtils.getCellData(1, 5);
-		String city = ExcelUtils.getCellData(1, 6);
-		String street = ExcelUtils.getCellData(1, 7);
-		Integer zip = ExcelUtils.getCellData1(1, 8);
-		//String dateAdded = ExcelUtils.getCellData(1, 9);
-		String code = ExcelUtils.getCellData(1, 10);
-		//String agreementDay = ExcelUtils.getCellData(1, 11);
-		String status = ExcelUtils.getCellData(1, 12);
+	public static void Execute(WebDriver driver) throws Exception {
+		//SetUpExcel("Client");
+		SetUpExcel();
+		Thread.sleep(3000);
+		ClientsPage.getClientPageBtn(driver).click();
+		Thread.sleep(3000);
+		ClientsPage.getNewClient(driver).click();
+		Thread.sleep(3000);
 
-		ClientsPage.addClientName(driver, clientName);
-		ClientsPage.addContactName(driver, contactName);
-		ClientsPage.addEmail(driver, email);
-		ClientsPage.addRegistryNumber(driver, registryNumber);
-		ClientsPage.addClientCountries(driver, country);
-		ClientsPage.addClientCity(driver, city);
-		ClientsPage.addClientStreet(driver, street);
-		ClientsPage.addClientZip(driver, zip);
+		String ClientName = ExcelUtils.getCellData(1, 1);
+		String ContactName = ExcelUtils.getCellData(1, 2);
+		Thread.sleep(2000);
+		String Email = ExcelUtils.getCellData(1, 3);
+		Integer RegistryNumber = ExcelUtils.getCellData1(1, 4);
+		String Country = ExcelUtils.getCellData(1, 5);
+		String City = ExcelUtils.getCellData(1, 6);
+		String Street = ExcelUtils.getCellData(1, 7);
+		Integer Zip = ExcelUtils.getCellData1(1, 8);
+		// String dateAdded = ExcelUtils.getCellData(1, 9);
+		String Code = ExcelUtils.getCellData(1, 10);
+		// String agreementDay = ExcelUtils.getCellData(1, 11);
+		String Status = ExcelUtils.getCellData(1, 12);
+
+		ClientsPage.addClientName(driver, ClientName);
+		ClientsPage.addContactName(driver, ContactName);
+		ClientsPage.addEmail(driver, Email);
+		ClientsPage.addRegistryNumber(driver, RegistryNumber);
+		ClientsPage.addClientCountries(driver, Country);
+		ClientsPage.addClientCity(driver, City);
+		ClientsPage.addClientStreet(driver, Street);
+		ClientsPage.addClientZip(driver, Zip);
 		// ClientsPage.addDateAdded(driver, dateAdded);
-		ClientsPage.addCode(driver, code);
+		ClientsPage.addCode(driver, Code);
 		// ClientsPage.addAgreementDay(driver, agreementDay);
-		ClientsPage.addStatus(driver, status);
-		ClientsPage.getSaveBtn(driver);
-		return "Pass";
+		ClientsPage.addStatus(driver, Status);
+		ClientsPage.getSaveBtn(driver).click();
 	}
 }

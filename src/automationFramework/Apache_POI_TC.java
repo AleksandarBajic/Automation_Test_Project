@@ -5,9 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import appModules.Busines_Page_Action;
+import appModules.Client_Page_Action;
 import appModules.SignIn_Action;
-import pageObjects.HomePage;
-
 import utility.ExcelUtils;
 import utility.Constant;
 
@@ -26,13 +25,22 @@ public class Apache_POI_TC {
 		driver.get(Constant.URL);
 
 		SignIn_Action.Execute(driver);
-
 		System.out.println("Login Successfully.");
-		Busines_Page_Action.Execute(driver);
-		//HomePage.LogOut(driver).click();
-		System.out.println("Logout Successfully");
 
-		driver.quit();
+		Busines_Page_Action.Execute(driver);
+		System.out.println("Login Business page Successfully.");
+		
+		Busines_Page_Action.Execute1(driver);
+		System.out.println("Login Bank page Successfully.");
+		
+		Client_Page_Action.Execute(driver);
+		System.out.println("Login Client page Successfully.");
+		
+		
+		// HomePage.LogOut(driver).click();
+		// System.out.println("Logout Successfully");
+
+		//driver.quit();
 
 		ExcelUtils.setCellData("Pass", 1, 3);
 

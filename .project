@@ -20,5 +20,10 @@
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Documents/system%20error/projekat_skola/TestData.xls</locationURI>
 		</link>
+		<link>
+			<name>src/testData/TestData1.xls</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Documents/system%20error/projekat_skola/TestData1.xls</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>
