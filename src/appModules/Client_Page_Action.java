@@ -29,9 +29,9 @@ public class Client_Page_Action {
 		String City = ExcelUtils.getCellData(1, 6);
 		String Street = ExcelUtils.getCellData(1, 7);
 		Integer Zip = ExcelUtils.getCellData1(1, 8);
-		// String dateAdded = ExcelUtils.getCellData(1, 9);
+		String dateAdded = ExcelUtils.getCellData(1, 9);
 		String Code = ExcelUtils.getCellData(1, 10);
-		// String agreementDay = ExcelUtils.getCellData(1, 11);
+		String agreementDay = ExcelUtils.getCellData(1, 11);
 		String Status = ExcelUtils.getCellData(1, 12);
 
 		ClientsPage.addClientName(driver, ClientName);
@@ -42,9 +42,9 @@ public class Client_Page_Action {
 		ClientsPage.addClientCity(driver, City);
 		ClientsPage.addClientStreet(driver, Street);
 		ClientsPage.addClientZip(driver, Zip);
-		// ClientsPage.addDateAdded(driver, dateAdded);
+		ClientsPage.addDateAdded(driver, dateAdded);
 		ClientsPage.addCode(driver, Code);
-		// ClientsPage.addAgreementDay(driver, agreementDay);
+		ClientsPage.addAgreementDay(driver, agreementDay);
 		ClientsPage.addStatus(driver, Status);
 		ClientsPage.getSaveBtn(driver).click();
 	}

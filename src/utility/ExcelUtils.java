@@ -6,7 +6,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 
 public class ExcelUtils {
 	private static HSSFSheet ExcelWSheet;
@@ -15,7 +15,8 @@ public class ExcelUtils {
 
 	private static HSSFCell Cell;
 
-	private static HSSFRow Row1;
+	private static HSSFRow Row;
+	
 
 	public static void setExcelFile(String Path, String SheetName) throws Exception {
 
@@ -54,13 +55,13 @@ public class ExcelUtils {
 
 		try {
 
-			Row1 = ExcelWSheet.getRow(RowNum);
+			Row = ExcelWSheet.getRow(RowNum);
 
-			Cell = Row1.getCell(ColNum, Row.RETURN_BLANK_AS_NULL);
+			Cell = Row.getCell(ColNum, MissingCellPolicy.RETURN_BLANK_AS_NULL);
 
 			if (Cell == null) {
 
-				Cell = Row1.createCell(ColNum);
+				Cell = Row.createCell(ColNum);
 
 				Cell.setCellValue(Result);
 
@@ -90,7 +91,7 @@ public class ExcelUtils {
 
 			Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
 
-			Integer CellData = (int)Cell.getNumericCellValue();
+			Integer CellData = (int) Cell.getNumericCellValue();
 
 			return CellData;
 

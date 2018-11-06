@@ -18,12 +18,12 @@
 		<link>
 			<name>src/testData/TestData.xls</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Documents/system%20error/projekat_skola/TestData.xls</locationURI>
+			<location>C:/Users/GAGA/Desktop/QA/projekat_skola/TestData/TestData.xls</location>
 		</link>
 		<link>
 			<name>src/testData/TestData1.xls</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Documents/system%20error/projekat_skola/TestData1.xls</locationURI>
+			<location>C:/Users/GAGA/Desktop/QA/projekat_skola/TestData/TestData1.xls</location>
 		</link>
 	</linkedResources>
 </projectDescription>

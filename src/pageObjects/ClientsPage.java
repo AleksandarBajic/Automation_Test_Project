@@ -1,12 +1,15 @@
 package pageObjects;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import utility.DateTimeUtils;
 
 public class ClientsPage {
 
@@ -24,24 +27,10 @@ public class ClientsPage {
 	}
 
 	public static WebElement getClientName(WebDriver driver) {
-		WebDriverWait wait = new WebDriverWait(driver, 5);
-		WebElement ClientName = wait
-				.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@aria-label=\"Client Name\"]")));
+		WebElement ClientName = driver.findElement(By.cssSelector("input[aria-label='Client Name']"));
 		return ClientName;
 	}
 
-	// public static WebElement getClientName(WebDriver driver) {
-	// element =
-	// driver.findElement(By.xpath("//*[@id=\"app\"]/div[6]/main/div/div/div[2]/div[2]/div/div[1]/div/form/div[1]/div[1]/div/div[2]/div[1]/div/input"));
-	// return element;
-	//
-	// }
-//	public static WebElement getContactName(WebDriver driver) {
-//		WebDriverWait wait = new WebDriverWait(driver, 5);
-//		WebElement ContactName = wait
-//				.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='flex xs6 mr-2']//input[@type='text']")));
-//		return ContactName;
-//	}
 	public static WebElement getContactName(WebDriver driver) {
 		element = driver.findElement(By.xpath(
 				"//form[@class='ma-2 pa-3 text-xs-center']//div[1]//div[2]//div[1]//div[2]//div[1]//div[1]//input[1]"));
@@ -89,12 +78,12 @@ public class ClientsPage {
 
 	}
 
-//	public static WebElement getDateAdded(WebDriver driver) {
-//		element = driver.findElement(
-//				By.xpath("//div[@class='flex xs3']//div[@class='v-dialog__container']//input[@type='text']"));
-//		return element;
-//
-//	}
+	public static WebElement getDateAdded(WebDriver driver) {
+		element = driver.findElement(
+				By.xpath("//div[@class='flex xs3']//div[@class='v-dialog__container']//input[@type='text']"));
+		return element;
+
+	}
 
 	public static WebElement getCode(WebDriver driver) {
 		element = driver.findElement(By.xpath(
@@ -102,10 +91,10 @@ public class ClientsPage {
 		return element;
 	}
 
-//	public static WebElement getAgreementDate(WebDriver driver) {
-//		element = driver.findElement(By.xpath("//div[@class='flex xs3 ml-3']//input[@type='text']"));
-//		return element;
-//	}
+	public static WebElement getAgreementDate(WebDriver driver) {
+		element = driver.findElement(By.xpath("//div[@class='flex xs3 ml-3']//input[@type='text']"));
+		return element;
+	}
 
 	public static WebElement getStatus(WebDriver driver) {
 		element = driver.findElement(By.xpath("//label[contains(text(),'Status: Active')]"));
@@ -119,6 +108,24 @@ public class ClientsPage {
 
 	public static WebElement getSaveBtn(WebDriver driver) {
 		element = driver.findElement(By.xpath("//div[contains(text(),'Save')]"));
+		return element;
+	}
+
+	public static WebElement getMonthsForward(WebDriver driver) {
+		element = driver.findElement(By.xpath(
+				"//div[@class='v-dialog v-dialog--active v-dialog--persistent']//div[@class='v-picker v-card v-picker--date']//div[@class='v-picker__body']//div//i[@class='v-icon material-icons'][contains(text(),'chevron_right')]"));
+		return element;
+	}
+
+	public static WebElement getMonthsBackward(WebDriver driver) {
+		element = driver.findElement(By.xpath(
+				"//div[@class='v-dialog v-dialog--active v-dialog--persistent']//div[@class='v-picker v-card v-picker--date']//div[@class='v-picker__body']//div//i[@class='v-icon material-icons'][contains(text(),'chevron_left')]"));
+		return element;
+	}
+
+	public static WebElement getOkCalendar(WebDriver driver) {
+		element = driver.findElement(By.xpath(
+				"//div[@class='v-dialog v-dialog--active v-dialog--persistent']//div[@class='v-btn__content'][contains(text(),'OK')]"));
 		return element;
 	}
 
@@ -165,8 +172,39 @@ public class ClientsPage {
 		getClientZip(driver).sendKeys(input.toString());
 	}
 
+	public static void addDateAdded(WebDriver driver, String dateAdded) throws InterruptedException {
+		getDateAdded(driver).click();
+		Thread.sleep(1000);
+		LocalDate ld = DateTimeUtils.StringToDate(dateAdded);
+		int monthsBetween = DateTimeUtils.MonthsBetweenTwoDates(LocalDate.now(), ld);
+		if (monthsBetween >= 0) {
+			for (int i = 0; i < monthsBetween; i++) {
+				getMonthsForward(driver).click();
+				Thread.sleep(1000);
+			}
+		} else {
+			for (int i = 0; i > monthsBetween; i--) {
+				getMonthsBackward(driver).click();
+				Thread.sleep(1000);
+			}
+		}
+		String day = Integer.toString(ld.getDayOfMonth());
+		String relXPathToRow = String.format("//*[contains(text(),'%s')]", day);
+		List<WebElement> lwe = driver.findElements(By.xpath(relXPathToRow));
+		lwe.get(lwe.size() - 1).click();
+		Thread.sleep(1000);
+		System.out.println("Kliknuo na datum");
+		getOkCalendar(driver).click();
+		Thread.sleep(1000);
+
+	}
+
 	public static void addCode(WebDriver driver, String input) {
 		getCode(driver).sendKeys(input);
+	}
+
+	public static void addAgreementDay(WebDriver driver, String agreementDay) {
+		getAgreementDate(driver).sendKeys(agreementDay);
 	}
 
 	public static void addStatus(WebDriver driver, String status) throws InterruptedException {
@@ -178,7 +216,7 @@ public class ClientsPage {
 	}
 
 	public static void addSaveBtn(WebDriver driver) {
-		getSaveBtn(driver);
+		getSaveBtn(driver).click();
 	}
 
 }
